@@ -8,7 +8,7 @@ checkOutStorage()
 
 
 async function getProducts() {
-  await fetch("http://webacademy.se/fakestore/")
+  await fetch("https://webacademy.se/fakestore/")
     .then((res) => res.json())
     .then((json) => {
       pro(json);
