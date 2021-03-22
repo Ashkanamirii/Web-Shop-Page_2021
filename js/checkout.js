@@ -15,7 +15,7 @@ function decreaseNumber(number) {
         "<p> your cart has been empty again </p> ";
     }
   }
-  //Number((6.688689).toFixed(2)); // 6.7
+  
   function deleteItem(event) {
     let itemDelete = event.target.parentElement;
     console.log(itemDelete);

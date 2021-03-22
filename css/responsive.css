@@ -151,6 +151,9 @@
     .product-img{
         text-align: center;
     }
+    .product-description{
+        text-align: center;
+    }
     .product-img > img {
         width: 200px;
         height: 290px;

@@ -19,6 +19,8 @@ function pro(products) {
   let products_list = document.getElementById("products_list");
 
   products.forEach((element) => {
+    let elementId = element.id;
+    let ptest = element.id;
     let product = document.createElement("div");
     product.setAttribute(
       "class",
@@ -36,9 +38,9 @@ function pro(products) {
     productQuicview.className = "product-quicview";
 
     let linkProduct = document.createElement("a");
-    linkProduct.setAttribute("href", "#");
-    linkProduct.setAttribute("data-toggle", "modal");
-    linkProduct.setAttribute("data-target", "#quickview");
+    linkProduct.setAttribute("href", "javascript:productDetails("+ptest+")");
+     linkProduct.setAttribute("data-toggle", "modal");
+     linkProduct.setAttribute("data-target", "#quickview");
 
     let iconPlus = document.createElement("i");
     iconPlus.setAttribute("class", "ti-plus");
@@ -48,13 +50,13 @@ function pro(products) {
 
     let price_p = document.createElement("h4");
     price_p.setAttribute("class", "product-price");
-    price_p.innerText = parseFloat(element.price);
+    price_p.innerText = ""+element.price+"$";
 
     let title_p = document.createElement("p");
     title_p.innerText = element.title;
 
     let addToCart = document.createElement("a");
-    let elementId = element.id;
+    
     addToCart.setAttribute("id", elementId);
     addToCart.setAttribute(
       "href",
@@ -179,12 +181,12 @@ function addproductToCart(id) {
     ++numberOfProduct;
     document.getElementById(id + "number").innerHTML = numberOfProduct + " x";
   }
-  totalPrice.toFixed(2); // kar nemikoneeeeeeeeeeee
+
   let checkOut = document.createElement("li");
   checkOut.setAttribute("id", "checkout-cart");
   checkOut.setAttribute("class", "total");
   checkOut.innerHTML = `
-      <span class="pull-right total_l">Total: ${totalPrice}</span>
+      <span class="pull-right total_l">Total: ${totalPrice.toFixed(2)}</span>
       <a
         href="checkout.html"
         class="btn btn-sm btn-checkout"
@@ -276,4 +278,165 @@ function checkOutStorage(){
 }
 }
 
+
+
+
+
+function productDetails(id){
+  console.log(id)
+
+}
+
+$('[data-toggle="modal"]').on('click', function (e) {
+
+  console.log("e");
+  // convert target (e.g. the button) to jquery object
+  var $target = $(e.target);
+  // modal targeted by the button
+  var modalSelector = $target.data('target');
+  
+  // iterate over each possible data-* attribute
+  ATTRIBUTES.forEach(function (attributeName) {
+    // retrieve the dom element corresponding to current attribute
+    var $modalAttribute = $(modalSelector + ' #modal-' + attributeName);
+    var dataValue = $target.data(attributeName);
+    
+    // if the attribute value is empty, $target.data() will return undefined.
+    // In JS boolean expressions return operands and are not coerced into
+    // booleans. That way is dataValue is undefined, the left part of the following
+    // Boolean expression evaluate to false and the empty string will be returned
+    $modalAttribute.text(dataValue || '');
+  });
+});
+
+
+// `
+// <div
+//         class="modal fade"
+//         id="quickview"
+//         tabindex="-1"
+//         role="dialog"
+//         aria-labelledby="quickview"
+//         aria-hidden="true"
+//       >
+//         <div
+//           class="modal-dialog modal-lg modal-dialog-centered"
+//           role="document"
+//         >
+//           <div class="modal-content">
+//             <button
+//               type="button"
+//               class="close btn"
+//               data-dismiss="modal"
+//               aria-label="Close"
+//             >
+//               <span aria-hidden="true">&times;</span>
+//             </button>
+
+//             <div class="modal-body">
+//               <div class="quickview_body">
+//                 <div class="container">
+//                   <div class="row">
+//                     <div class="col-12 col-lg-5">
+//                       <div class="quickview_pro_img">
+//                         <img src=${image} />
+//                       </div>
+//                     </div>
+//                     <div class="col-12 col-lg-7">
+//                       <div class="quickview_pro_des">
+//                         <h4 class="title">${title}</h4>
+//                         <div class="top_seller_product_rating mb-15">
+//                           <i class="fa fa-star" aria-hidden="true"></i>
+//                           <i class="fa fa-star" aria-hidden="true"></i>
+//                           <i class="fa fa-star" aria-hidden="true"></i>
+//                           <i class="fa fa-star" aria-hidden="true"></i>
+//                           <i class="fa fa-star" aria-hidden="true"></i>
+//                         </div>
+//                         <h5 class="price">$${price}<span>$${price+10}</span></h5>
+//                         <p>
+//                         ${description_p}
+//                         </p>
+//                         <a href="#">View Full Product Details</a>
+//                       </div>
+//                       <!-- Add to Cart Form -->
+//                       <form class="cart" method="post">
+//                         <div class="quantity">
+//                           <span
+//                             class="qty-minus"
+//                             onclick="var effect =
+//                             document.getElementById('qty');
+//                              var qty = effect.value; 
+//                              if( !isNaN( qty ) && qty== 1 ) 
+//                              effect.value--;return false;"
+//                             ><i class="fa fa-minus" aria-hidden="true"></i
+//                           ></span>
+
+//                           <input
+//                             type="number"
+//                             class="qty-text"
+//                             id="qty"
+//                             step="1"
+//                             min="1"
+//                             max="12"
+//                             name="quantity"
+//                             value="1"
+//                           />
+
+//                           <span
+//                             class="qty-plus"
+//                             onclick="var effect = document.getElementById('qty'); 
+//                             var qty = effect.value; 
+//                             if( !isNaN( qty )) effect.value++;
+//                             return false;"
+//                             ><i class="fa fa-plus" aria-hidden="true"></i
+//                           ></span>
+//                         </div>
+//                         <button
+//                           type="submit"
+//                           name="addtocart"
+//                           value="5"
+//                           class="cart-submit"
+//                         >
+//                           Add to cart
+//                         </button>
+//                         <!-- Wishlist -->
+//                         <div class="modal_pro_wishlist">
+//                           <a href="wishlist.html" target="_blank"
+//                             ><i class="ti-heart"></i
+//                           ></a>
+//                         </div>
+//                         <!-- Compare -->
+//                         <div class="modal_pro_compare">
+//                           <a href="compare.html" target="_blank"
+//                             ><i class="ti-stats-up"></i
+//                           ></a>
+//                         </div>
+//                       </form>
+
+//                       <div class="share_wf mt-30">
+//                         <p>Share With Friend</p>
+//                         <div class="_icon">
+//                           <a href="#"
+//                             ><i class="fa fa-facebook" aria-hidden="true"></i
+//                           ></a>
+//                           <a href="#"
+//                             ><i class="fa fa-twitter" aria-hidden="true"></i
+//                           ></a>
+//                           <a href="#"
+//                             ><i class="fa fa-pinterest" aria-hidden="true"></i
+//                           ></a>
+//                           <a href="#"
+//                             ><i class="fa fa-google-plus" aria-hidden="true"></i
+//                           ></a>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+// `
 
